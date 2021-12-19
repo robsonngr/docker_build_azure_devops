@@ -17,3 +17,5 @@ steps:
 - script: |
     docker build -f $(dockerFile) -t $(imageName):$(imageVersion) .
     docker images
+    docker login -u robsonngr -p $(DOCKERHUB_TOKEN)
+    docker push $(imageName):$(imageVersion)
