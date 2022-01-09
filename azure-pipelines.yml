@@ -8,14 +8,14 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  imageName: 'robsonngr/ansible'
-  imageVersion: '1.0'
+  imageName: 'ansible:$(Build.BuildId)'
+#  imageVersion: '1.0'
   dockerFile: 'Dockerfile_ansible'
-  tag: '$(Build.BuildId)'
+#  tag: '$(Build.BuildId)'
 
 steps:
 - script: |
-    docker build -f $(dockerFile) -t $(imageName):$(imageVersion) .
+    docker build -f $(dockerFile) -t $(dockerId)/$(imageName) .
     docker images
-    docker login -u robsonngr -p $(DOCKERHUB_TOKEN)
-    docker push $(imageName):$(imageVersion)
+    docker login -u $(dockerId) -p $(DOCKERHUB_TOKEN)
+    docker push $(dockerId)/$(imageName)
