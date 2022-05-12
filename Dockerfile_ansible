@@ -9,4 +9,5 @@ python3 -m pip install pywinrm; \
 yum install -y openssh-clients.x86_64; \
 yum install epel-release -y; \
 yum install sshpass -y; \
+yum install ansible -y; \
 yum clean all
