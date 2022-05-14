@@ -1,7 +1,10 @@
-FROM centos:7
-RUN yum update -y; \
+FROM centos:8
+RUN cd /etc/yum.repos.d/; \
+sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*; \
+sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*; \
+yum update -y; \
 yum install python3 -y; \
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py; \
+curl https://bootstrap.pypa.io/pip/3.6/get-pip.py -o get-pip.py; \
 python3 get-pip.py; \
 python3 -m pip install ansible; \
 python3 -m pip install boto3; \
@@ -9,5 +12,4 @@ python3 -m pip install pywinrm; \
 yum install -y openssh-clients.x86_64; \
 yum install epel-release -y; \
 yum install sshpass -y; \
-yum install ansible -y; \
 yum clean all
